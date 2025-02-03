@@ -102,7 +102,7 @@ app.get("/api/classify-number", (req, res) => {
     res.status(200).json(responseData);
   } catch (error) {
     console.error("Error getting data:", error);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(400).json({ error: "Something went wrong" });
   }
 });
 
