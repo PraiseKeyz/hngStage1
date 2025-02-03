@@ -50,15 +50,15 @@ git clone https://github.com/PraiseKeyz/hngStage1
   }
   ```
 ### Parameters
-number: The integer number to classify (required).
+- number: The integer number to classify (required).
 
 ###  Response
-number: The input number.
-isPrime: A boolean indicating if the number is prime.
-isPerfect: A boolean indicating if the number is perfect.
-properties: An array of the properties of the number (e.g., 'armstrong', 'odd').
-digitSum: The sum of the digits of the number.
-funFacts: A string containing fun facts about the number.
+- number: The input number.
+- isPrime: A boolean indicating if the number is prime.
+- isPerfect: A boolean indicating if the number is perfect.
+- properties: An array of the properties of the number (e.g., 'armstrong', 'odd').
+- digitSum: The sum of the digits of the number.
+- funFacts: A string containing fun facts about the number.
 
 ### Deployment
 
