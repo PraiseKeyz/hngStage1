@@ -34,9 +34,10 @@ git clone https://github.com/PraiseKeyz/hngStage1
 ## API Documentation
 
 ### Endpoint: Get API Response
-- URL: `/api`
+- URL: `/api/classify-number?number=<number>`
 - Method: `GET`
 - Response Format: `JSON`
+- Example Request: `/api/classify-number?number=153`
 - Example Response:
   ```json
   {
@@ -48,6 +49,16 @@ git clone https://github.com/PraiseKeyz/hngStage1
   "funFacts": "153 is an Armstrong number because the sum of its digits raised to the power of 3 equals 153. 153 is an odd number."
   }
   ```
+### Parameters
+number: The integer number to classify (required).
+
+###  Response
+number: The input number.
+isPrime: A boolean indicating if the number is prime.
+isPerfect: A boolean indicating if the number is perfect.
+properties: An array of the properties of the number (e.g., 'armstrong', 'odd').
+digitSum: The sum of the digits of the number.
+funFacts: A string containing fun facts about the number.
 
 ### Deployment
 
