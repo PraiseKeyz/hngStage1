@@ -11,7 +11,10 @@ app.get("/api/classify-number", (req, res) => {
     const numberPar = Number(req.query.number);
 
     if (isNaN(numberPar)) {
-      return res.status(400).json({ error: "Invalid number provided" });
+      return res.status(400).json({
+        number: numberPar,
+        error: true
+      });
     }
 
     // Function to check if a number is prime
