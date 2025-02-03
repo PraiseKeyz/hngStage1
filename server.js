@@ -1,20 +1,18 @@
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios"); // We need axios to make HTTP requests
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.get("/api/classify-number", (req, res) => {
+app.get("/api/classify-number", async (req, res) => {
   try {
     // Get number from query and convert it to an integer
     const numberPar = Number(req.query.number);
 
     if (isNaN(numberPar)) {
-      return res.status(400).json({
-        number: numberPar,
-        error: true
-      });
+      return res.status(400).json({ number: "alphabet", error: true });
     }
 
     // Function to check if a number is prime
@@ -59,8 +57,6 @@ app.get("/api/classify-number", (req, res) => {
         .reduce((sum, digit) => sum + Number(digit), 0);
     };
 
-    const funFacts = [];
-
     // Constructing the response
     const responseData = {
       number: numberPar,
@@ -77,27 +73,16 @@ app.get("/api/classify-number", (req, res) => {
     }
     responseData.properties.push(odd(numberPar) === "odd" ? "odd" : "even");
 
-
-    // Generating fun facts based on the properties
-    if (isArmstrong(numberPar)) {
-      funFacts.push(
-        `${numberPar} is an Armstrong number because the sum of its digits raised to the power of ${numberPar
-          .toString()
-          .length} equals ${numberPar}.`
+    // Generating the fun fact using Numbers API
+    try {
+      const funFactResponse = await axios.get(
+        `http://numbersapi.com/${numberPar}/math`
       );
+      responseData.funFacts = funFactResponse.data;
+    } catch (error) {
+      console.error("Error fetching fun fact:", error);
+      responseData.funFacts = "No fun fact available.";
     }
-    if (responseData.isPrime) {
-      funFacts.push(
-        `${numberPar} is a prime number because it is only divisible by 1 and itself.`
-      );
-    }
-    if (responseData.isPerfect) {
-      funFacts.push(
-        `${numberPar} is a perfect number because the sum of its proper divisors equals itself.`
-      );
-    }
-    funFacts.push(`${numberPar} is an ${odd(numberPar)} number.`);
-    responseData.funFacts = funFacts.join(" ");
 
     res.status(200).json(responseData);
   } catch (error) {
